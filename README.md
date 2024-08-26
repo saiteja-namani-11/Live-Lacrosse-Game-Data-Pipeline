@@ -1,6 +1,6 @@
 # Distributed Data Processing Pipeline for Lacrosse Game Analysis
 
-This project involves creating a distributed data pipeline to process a live game stream from a simulated lacrosse game. The pipeline is designed to generate real-time box scores and update team and player statistics in a database upon game completion. This project was adapted from a technical assessment for a data engineer position, providing a realistic and challenging scenario for practicing data engineering skills.
+This project involves creating a distributed data pipeline to process a **live game stream from a simulated lacrosse game.** The pipeline is designed to generate real-time box scores and update team and player statistics in a database upon game completion. This project was adapted from a technical assessment for a data engineer position, providing a realistic and challenging scenario for practicing data engineering skills.
 
 ## Project Overview
 
