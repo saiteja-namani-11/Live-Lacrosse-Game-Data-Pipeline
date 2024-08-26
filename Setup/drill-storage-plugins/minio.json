@@ -1,0 +1,39 @@
+{
+    "enabled": true,
+    "type": "file",
+    "connection": "s3a://gamestreams/",
+    "config": {
+        "fs.s3a.access.key": "minio",
+        "fs.s3a.secret.key": "Sidearm12345",
+        "fs.s3a.endpoint": "http://minio:9000",
+        "fs.s3a.connection.ssl.enabled": "false",
+        "fs.s3a.path.style.access": "true"
+    },
+    "workspaces": {
+      "default": {
+        "location": "/",
+        "writable": true,
+        "defaultInputFormat": null,
+        "allowAccessOutsideWorkspace": false
+      }
+    },
+    "formats": {
+      "txt": {
+        "type": "text",
+        "extensions": [
+          "txt"
+        ],
+        "extractHeader": false,
+        "fieldDelimiter": " "
+      },
+      "parquet": {
+        "type": "parquet"
+      },
+      "json": {
+        "type": "json",
+        "extensions": [
+          "json"
+        ]
+      }
+    }
+  }

@@ -1,0 +1,8 @@
+{
+    "enabled": true,
+    "type": "jdbc",
+    "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+    "url": "jdbc:sqlserver://mssql:1433;databaseName=sidearmdb",
+    "username": "sa",
+    "password": "Sidearm12345"
+  }
