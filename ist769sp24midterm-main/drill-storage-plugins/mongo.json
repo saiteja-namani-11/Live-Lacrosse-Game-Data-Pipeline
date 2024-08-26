@@ -1,0 +1,5 @@
+{
+    "type": "mongo",
+    "connection": "mongodb://mongo:Sidearm12345@mongo:27017/",
+    "enabled": true
+  }

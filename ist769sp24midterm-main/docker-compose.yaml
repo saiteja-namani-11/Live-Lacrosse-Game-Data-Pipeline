@@ -1,0 +1,95 @@
+version: "3.7"
+
+services:
+  mssql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    cap_add: [ 'SYS_PTRACE' ]
+    environment:
+      ACCEPT_EULA: 1
+      MSSQL_SA_PASSWORD: ${PASSWORD}
+    ports:
+      - "1433:1433"
+    hostname: mssql
+    volumes:
+      - "mssql-azuresql-edge-data:/var/opt/mssql"
+
+  minio:
+    image: minio/minio:latest
+    hostname: s3
+    command: server /data --console-address ":9001"
+    ports:
+    - "9000:9000"
+    - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${PASSWORD}
+    volumes:
+      - minio-data:/data 
+
+  mongo:
+    image: mongo:6.0
+    hostname: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: ${PASSWORD}
+    volumes:
+      - mongo-data:/data/db 
+
+
+  drill:
+    #image: apache/drill:1.19.0
+    build: drill/.
+    hostname: drill
+    command: /bin/bash
+    tty: true
+    ports:
+    - "8047:8047"
+    - "31010:31010"
+    ulimits:
+      memlock: -1
+      nproc: 32768
+      nofile: 100000
+    depends_on:
+      - mssql
+      - minio
+      - mongo 
+
+
+  #jupyter#
+  jupyter:
+    image: ist769/jupyter_pyspark:20210924b 
+    hostname: jupyter
+    environment:
+      - GRANT_SUDO=yes
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=${PASSWORD}       
+    ports:
+      - "8888:8888"
+    volumes: 
+      - ./work:/home/jovyan/work
+    depends_on:
+      - mssql
+      - minio
+      - mongo     
+
+  gamestream:
+    build: gamestream/.
+    hostname: gamestream
+    environment:
+      DELAY: ${DELAY}
+      PASSWORD: ${PASSWORD}
+    entrypoint: ["/bin/bash", "-c", "/app/run.sh"]
+    depends_on:
+      - drill
+      - jupyter 
+
+volumes:
+  minio-data:
+    driver: local
+  mongo-data:
+    driver: local
+  mssql-azuresql-edge-data:
+    driver: local
+    
