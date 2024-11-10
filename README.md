@@ -105,10 +105,6 @@ The project successfully demonstrates several key outcomes:
 - **Data Consistency and Integrity**: Ensuring data consistency across different databases and services, especially when handling real-time data streams and updates.
 - **Real-Time Data Processing**: Handling real-time data streams required optimizing the Spark execution plan and using efficient data processing techniques.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
-Special thanks to Professor [Name] for the original concept and permission to adapt this project for a portfolio piece.
+Special thanks to Professor Michael Fudge for the original concept and permission to adapt this project for a portfolio piece.
